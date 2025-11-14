@@ -22,12 +22,12 @@ const stopTimer = () => {
 const toggleRecord = () => {
   if (!isRecording) {
     getAudio();
-    button.innerText = 'stop';
+    button.innerText = '停止';
     isRecording = !isRecording;
     startTimer();
   } else {
     closeAudio();
-    button.innerText = 'record';
+    button.innerText = '录制';
     // document.querySelector('#test').innerText = recorder.buffer[0];
     isRecording = !isRecording;
     stopTimer();
@@ -39,11 +39,11 @@ chrome.commands.onCommand.addListener((command) => {
     toggleRecord();
   }
 });
-// chrome.runtime.onMessage.addListener((message, sender) => {
-//   if (message.key === 'test') {
-//     document.querySelector('#test').innerText = message.data;
-//   }
-// });
+chrome.runtime.onMessage.addListener((message, sender) => {
+  if (message.key === 'test') {
+    document.querySelector('#test').innerText = message.data;
+  }
+});
 const getAudio = () => {
   closeAudio();
   chrome.tabCapture.capture({ audio: true, video: false }, (callback) => {
@@ -72,6 +72,14 @@ const createAudio = (stream) => {
   recorder = new Recorder(tab.streamOutput);
   recorder.startRecording();
 };
+const floatToInt16 = (floatArray) => {
+  const int16Array = new Int16Array(floatArray.length);
+  for (let i = 0; i < floatArray.length; i++) {
+    const sample = Math.max(-1, Math.min(1, floatArray[i])); // range
+    int16Array[i] = sample < 0 ? sample * 0x8000 : sample * 0x7FFF;
+  }
+  return int16Array;
+}
 class Recorder {
   constructor(source) {
     this.numChannels = 2;
@@ -80,7 +88,8 @@ class Recorder {
       this.context.createScriptProcessor = this.context.createJavaScriptNode;
     this.input = this.context.createGain();
     source.connect(this.input);
-    this.buffer = [];
+    this.buffers = [];
+    this.base64s = [];
   }
   isRecording() {
     return this.processor != null;
@@ -94,12 +103,25 @@ class Recorder {
       );
       this.input.connect(this.processor);
       this.processor.connect(this.context.destination);
-      this.processor.onaudioprocess = (event) => {
+      this.processor.onaudioprocess = async (event) => {
         for (let ch = 0; ch < this.numChannels; ch++)
-          this.buffer[ch] = event.inputBuffer.getChannelData(ch);
+          this.buffers[ch] = floatToInt16(event.inputBuffer.getChannelData(ch));
+        this.base64s = await Promise.all(this.buffers.map((buffer) =>
+          new Promise((resolve, reject) => {
+            const blob = new Blob([buffer]);
+            const reader = new FileReader();
+            reader.onload = () => {
+              const base64data = reader.result;
+              base64data.split(',')[1];
+              resolve(base64data.split(',')[1]);
+            }
+            reader.onerror = error => reject(error);
+            reader.readAsDataURL(blob);
+          })
+        ))
         chrome.runtime.sendMessage({
           key: 'record',
-          buffer: this.buffer.map((a) => Array.from(a)),
+          base64: this.base64s,
         });
       };
       chrome.runtime.sendMessage({

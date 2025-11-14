@@ -35,7 +35,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 function interleave(inputL, inputR) {
   let length = inputL.length + inputR.length;
-  let result = new Float32Array(length);
+  let result = new Int16Array(length);
   let index = 0;
   let inputIndex = 0;
   while (index < length) {
@@ -50,12 +50,12 @@ function writeString(view, offset, string) {
     view.setUint8(offset + i, string.charCodeAt(i));
   }
 }
-function floatTo16BitPCM(output, offset, input) {
-  for (let i = 0; i < input.length; i++, offset += 2) {
-    let s = Math.max(-1, Math.min(1, input[i]));
-    output.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7fff, true);
-  }
-}
+// function floatTo16BitPCM(output, offset, input) {
+//   for (let i = 0; i < input.length; i++, offset += 2) {
+//     let s = Math.max(-1, Math.min(1, input[i]));
+//     output.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7fff, true);
+//   }
+// }
 function encodeWAV(samples) {
   let buffer = new ArrayBuffer(44 + samples.length * 2);
   let view = new DataView(buffer);
@@ -87,7 +87,8 @@ function encodeWAV(samples) {
   /* data chunk length */
   view.setUint32(40, samples.length * 2, true);
 
-  floatTo16BitPCM(view, 44, samples);
+  data = new Uint8Array(buffer);
+  data.set(new Uint8Array(samples.buffer), 44);
 
-  return view;
+  return data;
 }

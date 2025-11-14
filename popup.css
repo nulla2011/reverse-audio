@@ -4,6 +4,15 @@ body {
   flex-direction: column;
   align-items: center;
 }
+.title {
+  font-size: 1.2em;
+  margin-block: 4px;
+}
+hr {
+  width: 90%;
+  margin-block: 4px;
+  border-color: hotpink;
+}
 .button {
   width: 100px;
   height: 40px;
@@ -18,9 +27,9 @@ body {
   background-color: rgb(248, 101, 101);
   /* background-color: #f1394e; */
 }
-.test {
+#test {
   width: 150px;
-  word-wrap: break-word;
+  word-break: break-all;
 }
 #timer {
   font-size: 2em;
