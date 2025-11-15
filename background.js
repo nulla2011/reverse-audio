@@ -1,14 +1,15 @@
-const recTypedArrays = [];
-let recArrLength = 0;
-const recBase64s = [];
+const recBase64 = [];
 const numChannels = 2;
 const chunkSize = 1500000;
 let sampleRate;
+let screenSize = { width: 1920, height: 1080 };
+const popupSize = { width: 350, height: 300 };
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   switch (message.key) {
-    case 'start-capture':
-      chrome.runtime.sendMessage('1');
-      break;
+    // case 'start-capture':
+    //   chrome.runtime.sendMessage('1');
+    //   break;
     case 'start':
       init(message.sampleRate);
       break;
@@ -16,20 +17,21 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       record(message.base64);
       break;
     case 'finish':
+      screenSize = message.screenSize;
       finish();
       break;
   }
 });
 const record = (base64) => {
   for (let channel = 0; channel < numChannels; channel++) {
-    recBase64s[channel].push(base64[channel]);
+    recBase64[channel].push(base64[channel]);
   }
 };
 const finish = async () => {
   const sendArrays = new Array(numChannels);
   for (let channel = 0; channel < numChannels; channel++) {
     const arrList = []
-    for (const chunk of recBase64s[channel]) {
+    for (const chunk of recBase64[channel]) {
       const str = atob(chunk);
       const arr = new Uint8Array(str.length);
       for (let i = 0; i < str.length; i++) {
@@ -40,7 +42,15 @@ const finish = async () => {
     sendArrays[channel] = Array.from(new Int16Array(await new Blob(arrList).arrayBuffer()));
   }
   chrome.windows.create(
-    { type: 'popup', url: 'window.html', focused: !0, height: 300, width: 350 },
+    {
+      type: 'popup',
+      url: 'window.html',
+      focused: !0,
+      height: popupSize.height,
+      width: popupSize.width,
+      top: Math.floor((screenSize.height - popupSize.height) / 2),
+      left: Math.floor((screenSize.width - popupSize.width) / 2)
+    },
     (window) => {
       // chrome.tabs.sendMessage(window.tabs[0].id, { buffer: recTypedArrays, sampleRate });
       chrome.runtime.onMessage.addListener(async (message, sender) => {
@@ -76,7 +86,6 @@ const finish = async () => {
 const init = (sample_rate) => {
   sampleRate = sample_rate;
   for (let channel = 0; channel < numChannels; channel++) {
-    recTypedArrays[channel] = new Uint8Array(0);
-    recBase64s[channel] = []
+    recBase64[channel] = []
   }
 };

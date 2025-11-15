@@ -19,11 +19,11 @@
     "tabCapture"
   ],
   "commands": {
-    "toggle": {
-      "description": "Toggle Record",
+    "_execute_action": {
+      "description": "Start",
       "suggested_key": {
-        "default": "Ctrl+Shift+K",
-        "mac": "Command+Shift+K"
+        "default": "Ctrl+Shift+5",
+        "mac": "Command+Shift+5"
       }
     }
   }

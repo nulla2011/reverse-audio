@@ -1,7 +1,7 @@
 let tab = {};
 let isRecording = false;
 let recorder;
-const button = document.querySelector('.button');
+const button = document.querySelector('#record-button');
 // button.onclick = () => chrome.runtime.sendMessage('start-capture');
 const timer = document.querySelector('#timer');
 let timerID;
@@ -28,7 +28,6 @@ const toggleRecord = () => {
   } else {
     closeAudio();
     button.innerText = '录制';
-    // document.querySelector('#test').innerText = recorder.buffer[0];
     isRecording = !isRecording;
     stopTimer();
   }
@@ -97,7 +96,7 @@ class Recorder {
     // source.connect(this.input);
     this.workletNode = workletNode;
     this.buffers = [];
-    this.base64s = [];
+    this.base64 = [];
   }
   // isRecording() {
   //   return this.processor != null;
@@ -108,7 +107,7 @@ class Recorder {
       if (event.data.key === 'audio') {
         for (let ch = 0; ch < this.numChannels; ch++)
           this.buffers[ch] = new Int16Array(event.data.buffers[ch]);
-        this.base64s = await Promise.all(this.buffers.map((buffer) =>
+        this.base64 = await Promise.all(this.buffers.map((buffer) =>
           new Promise((resolve, reject) => {
             const blob = new Blob([buffer]);
             const reader = new FileReader();
@@ -123,7 +122,7 @@ class Recorder {
         ))
         chrome.runtime.sendMessage({
           key: 'record',
-          base64: this.base64s,
+          base64: this.base64,
         });
       }
     }
@@ -164,7 +163,15 @@ class Recorder {
   }
   finishRecording() {
     // if (this.isRecording()) {
-    chrome.runtime.sendMessage({ key: 'finish' });
+    chrome.runtime.sendMessage({
+      key: 'finish',
+      screenSize: {
+        width: window.screen.availWidth,
+        height: window.screen.availHeight
+      }
+    });
     // }
   }
 }
+
+toggleRecord()    //auto start recording on popup

@@ -9,13 +9,16 @@
 </head>
 
 <body>
-  <h1 class="title">点击录制开始录制需要倒放的音频</h1>
+  <h1 class="title">已经开始录制，如果未开始请点击录制按钮</h1>
   <hr />
-  <div id="timer">00:00.000</div>
-  <button class="button">录制</button>
-  <ul>
+  <div>
+    <span id="light" class="flash"></span>
+    <span id="timer">00:00.00</span>
+  </div>
+  <button id="record-button" class="button">录制</button>
+  <!-- <ul>
     <li id="key-hint">可按 Ctrl+Shift+K 开始/停止录音</li>
-  </ul>
+  </ul> -->
   <div id="test"></div>
   <script src="popup.js"></script>
 </body>
