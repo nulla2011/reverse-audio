@@ -1,9 +1,9 @@
 {
-  "name": "reverse audio",
+  "name": "Reverse Audio",
   "version": "0.0.1",
   "author": "nulla",
   "manifest_version": 3,
-  "description": "record and reverse web audio",
+  "description": "Record and reverse web audio",
   "action": {
     "default_popup": "popup.html",
     "default_title": "record"

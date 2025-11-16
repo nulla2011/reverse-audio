@@ -1,4 +1,91 @@
-.audio{
-  margin-block: 50px;
-  height: 50px;
+.wrapper {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.audio-player {
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #f8f8fa;
+  padding: 10px;
+  width: 300px;
+  height: 40px;
+  display: flex;
+}
+.buttons {
+  position: relative;
+  height: 40px;
+  width: 40px;
+  flex: none;
+}
+.buttons button {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.progress {
+  flex: 1;
+  height: 100%;
+  display: flex;
+}
+.progress .time {
+  width: 40px;
+  text-align: center;
+  font-size: 15px;
+  line-height: 40px;
+  color: #666;
+  user-select: none;
+}
+.progress-bar {
+  flex: 1;
+  height: 6px;
+  margin: auto 5px;
+  background-color: #ddd;
+  border-radius: 3px;
+  position: relative;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.progress-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #888888;
+  cursor: pointer;
+}
+.progress-bar:hover::-webkit-slider-thumb {
+  width: 14px;
+  height: 14px;
+  background-color: rgb(248, 101, 101);
+  transition: all 0.2s;
+}
+.download-button {
+  margin: 0;
+  padding: 0 3px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  background-color: #e7e3e3;
+}
+.download-button:hover {
+  background-color: #f3ecec;
+  transition: all 0.2s;
+}
+.description {
+  margin-left: 10px;
+  font-size: 22px;
+  color: #555555;
+}
+hr {
+  margin-top: 10px;
+  margin-bottom: 0px;
 }

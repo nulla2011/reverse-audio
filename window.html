@@ -5,15 +5,110 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="window.css" rel="stylesheet" type="text/css">
-  <title>result</title>
+  <title>Reverse Audio</title>
 </head>
 
 <body>
   <h1 class="title"></h1>
-  <div id="origin" class="audio"></div>
-  <div id="reverse" class="audio"></div>
-  <div id="test"></div>
+  <h2 class="description">原版音频：</h2>
+  <div class="wrapper">
+    <div id="origin" class="audio-player">
+      <div class="buttons">
+        <button class="play-button">
+          <icon>
+            <?xml version="1.0" encoding="UTF-8"?><svg width="36px" height="36px" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg" color="#000000" stroke-width="1.5">
+              <path
+                d="M6.90588 4.53682C6.50592 4.2998 6 4.58808 6 5.05299V18.947C6 19.4119 6.50592 19.7002 6.90588 19.4632L18.629 12.5162C19.0211 12.2838 19.0211 11.7162 18.629 11.4838L6.90588 4.53682Z"
+                fill="#000000" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              </path>
+            </svg>
+          </icon>
+        </button>
+        <button class="pause-button">
+          <icon>
+            <?xml version="1.0" encoding="UTF-8"?><svg width="36px" height="36px" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg" color="#000000" stroke-width="1.5">
+              <path
+                d="M6 18.4V5.6C6 5.26863 6.26863 5 6.6 5H9.4C9.73137 5 10 5.26863 10 5.6V18.4C10 18.7314 9.73137 19 9.4 19H6.6C6.26863 19 6 18.7314 6 18.4Z"
+                fill="#000000" stroke="#000000" stroke-width="1.5"></path>
+              <path
+                d="M14 18.4V5.6C14 5.26863 14.2686 5 14.6 5H17.4C17.7314 5 18 5.26863 18 5.6V18.4C18 18.7314 17.7314 19 17.4 19H14.6C14.2686 19 14 18.7314 14 18.4Z"
+                fill="#000000" stroke="#000000" stroke-width="1.5"></path>
+            </svg>
+          </icon>
+        </button>
+      </div>
+      <div class="progress">
+        <div class="time current">0:00</div>
+        <input class="progress-bar" type="range" min="0" max="0" value="0" step="0.01">
+        <div class="time duration">-:--</div>
+      </div>
+      <audio id="audio-origin" src=""></audio>
+    </div>
+    <a href="" download="" id="download-origin">
+      <button class="download-button">
+        <?xml version="1.0" encoding="UTF-8"?><svg width="32px" height="32px" stroke-width="1.5" viewBox="0 0 24 24"
+          fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+          <path d="M6 20L18 20" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          </path>
+          <path d="M12 4V16M12 16L15.5 12.5M12 16L8.5 12.5" stroke="#000000" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+      </button>
+    </a>
+  </div>
+  <hr />
+  <h2 class="description">倒放音频：</h2>
+  <div class="wrapper">
+    <div id="reverse" class="audio-player">
+      <div class="buttons">
+        <button class="play-button">
+          <icon>
+            <?xml version="1.0" encoding="UTF-8"?><svg width="36px" height="36px" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg" color="#000000" stroke-width="1.5">
+              <path
+                d="M6.90588 4.53682C6.50592 4.2998 6 4.58808 6 5.05299V18.947C6 19.4119 6.50592 19.7002 6.90588 19.4632L18.629 12.5162C19.0211 12.2838 19.0211 11.7162 18.629 11.4838L6.90588 4.53682Z"
+                fill="#000000" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              </path>
+            </svg>
+          </icon>
+        </button>
+        <button class="pause-button">
+          <icon>
+            <?xml version="1.0" encoding="UTF-8"?><svg width="36px" height="36px" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg" color="#000000" stroke-width="1.5">
+              <path
+                d="M6 18.4V5.6C6 5.26863 6.26863 5 6.6 5H9.4C9.73137 5 10 5.26863 10 5.6V18.4C10 18.7314 9.73137 19 9.4 19H6.6C6.26863 19 6 18.7314 6 18.4Z"
+                fill="#000000" stroke="#000000" stroke-width="1.5"></path>
+              <path
+                d="M14 18.4V5.6C14 5.26863 14.2686 5 14.6 5H17.4C17.7314 5 18 5.26863 18 5.6V18.4C18 18.7314 17.7314 19 17.4 19H14.6C14.2686 19 14 18.7314 14 18.4Z"
+                fill="#000000" stroke="#000000" stroke-width="1.5"></path>
+            </svg>
+          </icon>
+        </button>
+      </div>
+      <div class="progress">
+        <div class="time current">0:00</div>
+        <input class="progress-bar" type="range" min="0" max="0" value="0" step="0.01">
+        <div class="time duration">-:--</div>
+      </div>
+      <audio id="audio-reverse" src=""></audio>
+    </div>
+    <a href="" download="" id="download-reverse">
+      <button class="download-button">
+        <?xml version="1.0" encoding="UTF-8"?><svg width="32px" height="32px" stroke-width="1.5" viewBox="0 0 24 24"
+          fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+          <path d="M6 20L18 20" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          </path>
+          <path d="M12 4V16M12 16L15.5 12.5M12 16L8.5 12.5" stroke="#000000" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+      </button>
+    </a>
+  </div>
   <script src="window.js"></script>
+  <script src="window-player.js"></script>
 </body>
 
 </html>

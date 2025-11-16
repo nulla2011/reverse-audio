@@ -3,7 +3,7 @@ const numChannels = 2;
 const chunkSize = 1500000;
 let sampleRate;
 let screenSize = { width: 1920, height: 1080 };
-const popupSize = { width: 350, height: 300 };
+const popupSize = { width: 450, height: 350 };
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   switch (message.key) {

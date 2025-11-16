@@ -1,10 +1,11 @@
 let numChannels = 2;
 let sampleRate;
-const originAudio = document.querySelector('#origin');
-const reverseAudio = document.querySelector('#reverse');
-// const audioContext = new AudioContext();
-// const bufferSource = audioContext.createBufferSource(originAudio);
+const originAudio = document.querySelector('#audio-origin');
+const reverseAudio = document.querySelector('#audio-reverse');
+const originDownload = document.querySelector('#download-origin');
+const reverseDownload = document.querySelector('#download-reverse');
 let buffer = [];
+
 window.onload = () => chrome.runtime.sendMessage({ key: 'window-finish-loading' });
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.key === 'init') {
@@ -25,12 +26,16 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       type: 'audio/wav',
     });
     const blobUrl = URL.createObjectURL(blob);
-    originAudio.innerHTML = `<audio src="${blobUrl}" controls></audio><a href="${blobUrl}" download="down.wav"></a>`;
+    originAudio.src = blobUrl;
+    originDownload.href = blobUrl;
+    originDownload.download = `Record_${date()}.wav`;
     const blob2 = new Blob([encodeWAV(interleave(b[0].reverse(), b[1].reverse()))], {
       type: 'audio/wav',
     });
     const blob2Url = URL.createObjectURL(blob2);
-    reverseAudio.innerHTML = `<audio src="${blob2Url}" controls></audio><a href="${blob2Url}" download="down.wav"></a>`;
+    reverseAudio.src = blob2Url;
+    reverseDownload.href = blob2Url;
+    reverseDownload.download = `Reverse_${date()}.wav`;
   }
 });
 function interleave(inputL, inputR) {
@@ -50,12 +55,6 @@ function writeString(view, offset, string) {
     view.setUint8(offset + i, string.charCodeAt(i));
   }
 }
-// function floatTo16BitPCM(output, offset, input) {
-//   for (let i = 0; i < input.length; i++, offset += 2) {
-//     let s = Math.max(-1, Math.min(1, input[i]));
-//     output.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7fff, true);
-//   }
-// }
 function encodeWAV(samples) {
   let buffer = new ArrayBuffer(44 + samples.length * 2);
   let view = new DataView(buffer);
@@ -91,4 +90,14 @@ function encodeWAV(samples) {
   data.set(new Uint8Array(samples.buffer), 44);
 
   return data;
+}
+function date() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const seconds = String(now.getSeconds()).padStart(2, '0');
+  return `${year}-${month}-${day}_${hours}:${minutes}:${seconds}`;
 }
