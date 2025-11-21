@@ -28,15 +28,25 @@
       "https://*/*"
     ],
     "permissions": [
-      "scripting"
+      "activeTab",
+      "tabCapture"
     ],
+    "commands": {
+      "_execute_action": {
+        "description": "Start",
+        "suggested_key": {
+          "default": "Ctrl+Shift+5",
+          "mac": "Command+Shift+5"
+        }
+      }
+    },
     "web_accessible_resources": [
       {
         "matches": [
           "<all_urls>"
         ],
         "resources": [
-          "tabs/delta-flyer.html"
+          "recorder-processor.js"
         ]
       }
     ]
