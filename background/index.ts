@@ -7,9 +7,6 @@ const popupSize = { width: 450, height: 350 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   switch (message.key) {
-    // case 'start-capture':
-    //   chrome.runtime.sendMessage('1');
-    //   break;
     case "start":
       init(message.sampleRate)
       break
@@ -54,7 +51,6 @@ const finish = async () => {
       left: Math.floor((screenSize.width - popupSize.width) / 2)
     },
     (window) => {
-      // chrome.tabs.sendMessage(window.tabs[0].id, { buffer: recTypedArrays, sampleRate });
       chrome.runtime.onMessage.addListener(async (message, sender) => {
         if (message.key === "window-finish-loading") {
           const tid = window.tabs[0].id
@@ -63,10 +59,6 @@ const finish = async () => {
             sampleRate,
             numChannels
           })
-          // chrome.runtime.sendMessage({
-          //   key: 'test',
-          //   data: `${recTypedArrays[0][3000]}<br>${recTypedArrays[1][3000]}`,
-          // });
           const taskList: Promise<void>[] = []
           for (
             let index = 0;

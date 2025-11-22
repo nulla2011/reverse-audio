@@ -1,4 +1,4 @@
-export function interleave(channelBuffers: Int16Array[]) {
+export function interleave(channelBuffers: number[][]) {
   const length = channelBuffers.reduce((acc, cur) => acc + cur.length, 0)
   const output = new Int16Array(length)
   let index = 0

@@ -43,6 +43,11 @@
   color: #666;
   user-select: none;
 }
+@property --color {
+  syntax: "<color>";
+  initial-value: #aaa;
+  inherits: false;
+}
 .progress-bar {
   flex: 1;
   height: 6px;
@@ -53,6 +58,11 @@
   cursor: pointer;
   -webkit-appearance: none;
   appearance: none;
+  --color: #aaa;
+  transition: --color 0.3s;
+}
+.progress-bar:hover {
+  --color: rgb(248, 101, 101);
 }
 .progress-bar::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -61,12 +71,12 @@
   border-radius: 50%;
   background-color: #888888;
   cursor: pointer;
+  transition: all 0.3s;
 }
 .progress-bar:hover::-webkit-slider-thumb {
   width: 14px;
   height: 14px;
   background-color: rgb(248, 101, 101);
-  transition: all 0.2s;
 }
 .download-button {
   margin: 0;
@@ -88,4 +98,26 @@
 hr {
   margin-top: 10px;
   margin-bottom: 0px;
+}
+.skeleton-player {
+  margin-left: 10px;
+  background-image: linear-gradient(90deg, #ddd 25%, #eee 37%, #ddd 50%);
+  background-size: 400% 100%;
+  background-position: 100% 50%;
+  animation: skeleton-loading 1.4s ease infinite;
+  height: 62px;
+  width: 400px;
+}
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+.skeleton-text {
+  height: 30px;
+  margin-block: 0.83em;
+  font-size: 22px;
 }

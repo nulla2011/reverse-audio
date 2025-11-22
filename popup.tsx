@@ -1,14 +1,14 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 
 import Recorder from "~recorder"
 
 import "./popup.css"
 
-let rafId: number
 export default function IndexPopup() {
   const [isRecording, setIsRecording] = useState(true)
   const [timer, setTimer] = useState("00:00.00")
   const [test, setTest] = useState("")
+  const rafId = useRef(null)
   const recorder = useMemo(() => new Recorder(), [])
   useEffect(() => {
     if (isRecording) {
@@ -23,20 +23,20 @@ export default function IndexPopup() {
         rst = rst % 1000
         const milliseconds = String(Math.floor(rst / 10)).padStart(2, "0")
         setTimer(`${minutes}:${seconds}.${milliseconds}`)
-        rafId = requestAnimationFrame(tick)
+        rafId.current = requestAnimationFrame(tick)
       }
-      rafId = requestAnimationFrame(tick)
+      rafId.current = requestAnimationFrame(tick)
       recorder.getAudio()
     } else {
       if (rafId) {
-        cancelAnimationFrame(rafId)
+        cancelAnimationFrame(rafId.current)
       }
       if (recorder) {
         recorder.closeAudio()
       }
     }
     return () => {
-      cancelAnimationFrame(rafId)
+      cancelAnimationFrame(rafId.current)
     }
   }, [isRecording])
   useEffect(() => {
@@ -63,7 +63,7 @@ export default function IndexPopup() {
       <ul>
         <li id="key-hint">本扩展快捷键为 Ctrl+Shift+5</li>
       </ul>
-      <div id="test">{test}</div>
+      {/* <div id="test">{test}</div> */}
     </main>
   )
 }
