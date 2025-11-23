@@ -40,11 +40,11 @@ export default function IndexPopup() {
     }
   }, [isRecording])
   useEffect(() => {
-    chrome.runtime.onMessage.addListener((message, sender) => {
-      if (message.key === "test") {
-        setTest(message.data)
-      }
-    })
+    // chrome.runtime.onMessage.addListener((message, sender) => {
+    //   if (message.key === "test") {
+    //     setTest(message.data)
+    //   }
+    // })
   }, [])
   return (
     <main>

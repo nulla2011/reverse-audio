@@ -15,7 +15,7 @@ export default function WindowTab() {
   const [isAudioReady, setIsAudioReady] = useState(false)
   useEffect(() => {
     chrome.runtime.sendMessage({ key: "window-finish-loading" })
-    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    const handler = (message, sender, sendResponse) => {
       if (message.key === "init") {
         sampleRate = message.sampleRate
         numChannels = message.numChannels
@@ -56,7 +56,9 @@ export default function WindowTab() {
         setReverseAudioURL(URL.createObjectURL(blob2))
         setIsAudioReady(true)
       }
-    })
+    }
+    chrome.runtime.onMessage.addListener(handler)
+    return () => chrome.runtime.onMessage.removeListener(handler)
   }, [])
   return (
     <>
