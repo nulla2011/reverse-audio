@@ -1,5 +1,5 @@
 main {
-  width: 280px;
+  width: 350px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,13 +32,24 @@ hr {
   word-break: break-all;
 }
 #timer {
-  font-size: 2em;
+  font-size: 3em;
   margin-block: 4px;
+  user-select: none;
 }
 ul {
   padding-inline-start: 10px;
 }
-#key-hint {
+.comment {
   font-size: 1.2em;
   margin-block: 4px;
+}
+.head {
+  height: 25px;
+  width: 100%;
+}
+.icon {
+  display: block;
+  margin-left: auto;
+  height: 25px;
+  width: 25px;
 }
