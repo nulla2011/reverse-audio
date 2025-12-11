@@ -1,7 +1,7 @@
 {
   "name": "reverse-audio",
   "displayName": "Reverse Audio",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Record and reverse web audio",
   "author": "nulla",
   "scripts": {
