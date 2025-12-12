@@ -14,11 +14,11 @@ hr {
   border-color: hotpink;
 }
 .button {
-  width: 100px;
-  height: 40px;
-  border-radius: 10px;
+  width: 140px;
+  height: 45px;
+  border-radius: 9999px;
   border-style: none;
-  font-size: 2em;
+  font-size: 2.2em;
   /* background-color: #ee5365; */
   background-color: rgb(255, 154, 154);
   margin-block: 4px;
@@ -32,7 +32,7 @@ hr {
   word-break: break-all;
 }
 #timer {
-  font-size: 3em;
+  font-size: 3.3em;
   margin-block: 4px;
   user-select: none;
 }
@@ -42,6 +42,7 @@ ul {
 .comment {
   font-size: 1.2em;
   margin-block: 4px;
+  margin-inline: 10px;
 }
 .head {
   height: 25px;

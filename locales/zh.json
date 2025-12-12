@@ -1,0 +1,8 @@
+{
+  "stop": "停止",
+  "record": "录制",
+  "comment-limit": "考虑到性能问题，暂时将录音时间限制为二十分钟",
+  "comment-shortcut": "本扩展快捷键为 Ctrl+Shift+5",
+  "original-audio": "原版音频：",
+  "reversed-audio": "倒放音频："
+}

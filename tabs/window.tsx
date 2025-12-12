@@ -1,15 +1,18 @@
 import moment from "moment"
 import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 
 import Player from "./components/player"
 import { encodeWAV, interleave } from "./encodeWAV"
 
+import "~i18n"
 import "./window.css"
 
 let numChannels = 2
 let sampleRate = 48000
 let bufferUnflat: number[][]
 export default function WindowTab() {
+  const { t } = useTranslation()
   const [originAudioURL, setOriginAudioURL] = useState("")
   const [reverseAudioURL, setReverseAudioURL] = useState("")
   const [isAudioReady, setIsAudioReady] = useState(false)
@@ -65,7 +68,7 @@ export default function WindowTab() {
       {isAudioReady ? (
         <>
           {/* <h1 className="title"></h1> */}
-          <h2 className="description">原版音频：</h2>
+          <h2 className="description">{t("original-audio")}</h2>
           <div className="wrapper">
             <Player url={originAudioURL} />
             <DownloadButton
@@ -74,7 +77,7 @@ export default function WindowTab() {
             />
           </div>
           <hr />
-          <h2 className="description">倒放音频：</h2>
+          <h2 className="description">{t("reversed-audio")}</h2>
           <div className="wrapper">
             <Player url={reverseAudioURL} />
             <DownloadButton

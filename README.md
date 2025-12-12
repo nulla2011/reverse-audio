@@ -41,5 +41,5 @@ $ pnpm build
 ```
 
 # TODO
-* i18n
-* drift compensation
+* ☑ i18n
+* ☐ drift compensation

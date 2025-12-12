@@ -1,0 +1,8 @@
+{
+  "stop": "STOP",
+  "record": "RECORD",
+  "comment-limit": "Recording time is limited to 20 minutes due to performance issues",
+  "comment-shortcut": "You can press Ctrl+Shift+5 to call this extension",
+  "original-audio": "Original Audio",
+  "reversed-audio": "Reversed Audio"
+}

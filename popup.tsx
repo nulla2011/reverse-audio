@@ -1,11 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
 
 import Recorder from "~recorder"
 
+import "~i18n"
 import "./popup.css"
 
 const LIMIT = 20 * 60 * 1000
+
 export default function IndexPopup() {
+  const { t } = useTranslation()
   const [isRecording, setIsRecording] = useState(true)
   const [timer, setTimer] = useState("00:00.00")
   const [test, setTest] = useState("")
@@ -63,15 +67,13 @@ export default function IndexPopup() {
         id="record-button"
         className="button"
         onClick={() => setIsRecording(!isRecording)}>
-        {isRecording ? "停止" : "录制"}
+        {isRecording ? t("stop") : t("record")}
       </button>
       <ul>
-        <li className="comment">
-          考虑到性能问题，暂时将录音时间限制为二十分钟
-        </li>
-        <li className="comment">本扩展快捷键为 Ctrl+Shift+5</li>
+        <li className="comment">{t("comment-limit")}</li>
+        <li className="comment">{t("comment-shortcut")}</li>
       </ul>
-      {/* <div id="test">{test}</div> */}
+      {/* <div id="test">{navigator.language}</div> */}
     </main>
   )
 }
