@@ -67,7 +67,42 @@ export default function IndexPopup() {
         id="record-button"
         className="button"
         onClick={() => setIsRecording(!isRecording)}>
-        {isRecording ? t("stop") : t("record")}
+        {isRecording ? (
+          <svg
+            width="20px"
+            height="20px"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            color="#000000">
+            <path
+              d="M21 3.6V20.4C21 20.7314 20.7314 21 20.4 21H3.6C3.26863 21 3 20.7314 3 20.4V3.6C3 3.26863 3.26863 3 3.6 3H20.4C20.7314 3 21 3.26863 21 3.6Z"
+              stroke="#232323"
+              fill="#232323"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        ) : (
+          <svg
+            width="20px"
+            height="20px"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            color="#000000">
+            <path
+              d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+              stroke="#232323"
+              fill="#232323"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        )}
+        <span>{isRecording ? t("stop") : t("record")}</span>
       </button>
       <ul>
         <li className="comment">{t("comment-limit")}</li>

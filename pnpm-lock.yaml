@@ -11,6 +11,9 @@ importers:
       i18next:
         specifier: ^25.7.2
         version: 25.7.2(typescript@5.3.3)
+      iconoir-react:
+        specifier: ^7.11.0
+        version: 7.11.0(react@18.2.0)
       moment:
         specifier: ^2.30.1
         version: 2.30.1
@@ -2102,6 +2105,11 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
+
+  iconoir-react@7.11.0:
+    resolution: {integrity: sha512-uvTKtnHYwbbTsmQ6HCcliYd50WK0GbjP497RwdISxKzfS01x4cK1Mn/F2mT/t2roSaJQ0I+KnHxMcyvmNMXWsQ==}
+    peerDependencies:
+      react: 18 || 19
 
   iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
@@ -5387,6 +5395,10 @@ snapshots:
       '@babel/runtime': 7.28.4
     optionalDependencies:
       typescript: 5.3.3
+
+  iconoir-react@7.11.0(react@18.2.0):
+    dependencies:
+      react: 18.2.0
 
   iconv-lite@0.6.3:
     dependencies:
